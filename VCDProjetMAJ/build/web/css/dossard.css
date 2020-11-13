@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 juin 2018, 08:40:10
+    Author     : Moussa
+*/
+
+
+
+html, body {
+    margin: 0; /* pour �viter les marges */
+    background-color:#eee
+}
+
+
+body {
+    background-color:#fff;
+    background: url('../images/bg_body.png') no-repeat;
+}
+.listeDossard{
+    text-decoration: underline;
+}
+.formEdition{
+    margin-left: 2%;
+}

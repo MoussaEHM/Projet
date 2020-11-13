@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <title>Liste des dossard</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../css/dossard.css" media="screen" type="text/css" />
+
+    </h:head>
+    <h:body >
+        <!-- Menu -->
+        <ui:include src="/menu/menu.xhtml"/> 
+
+        <center><h:form style="width: 50%" id="formulaireTableauDossard" prependId="false">
+            <br></br>
+            <p:dataTable id="tabDossard"  value="#{dossardBean.listerDossard}" paginator="true" rows="10" var="dossard" >
+
+                <p:column width="5%">
+                    <f:facet name="header">Numéro de dossard</f:facet>
+                    <h:outputText value="#{dossard.numDossard}"/>
+                </p:column>
+                <p:column width="5%">
+                    <f:facet name="header">Numéro RFID</f:facet>
+                    <h:outputText value="#{dossard.numRFID}"/>
+                </p:column>
+                <p:column width="15%">
+                    <center>
+                        <f:facet name="header">Option</f:facet>
+                        <p:commandButton value="Editer" action="#{dossardBean.setDossard(dossard)}" ajax="true"  update=":formulaireAjouterDossard" icon="ui-icon-pencil"/>
+                        <p:commandButton value="Supprimer" action="#{dossardBean.supprimerDossard(dossard)}" ajax="true" update="messages tabDossard" icon="ui-icon-trash">
+                            <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ce dossard ?" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </center>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+        </center>
+
+        <div class="formEdition">
+        <h2 class="listeDossard">Gestion des dossards</h2>
+        <!--Formulaire d'ajout-->
+        <br/>
+        <h:form id="formulaireAjouterDossard" enctype="multipart/form-data" prependId="false">
+            <h:inputHidden value="#{dossardBean.dossard.numDossard}" />
+            <p:panelGrid columns="2" styleClass="ui-panelgrid-blank" id="panDossard">
+
+                <h:outputLabel value="Numéro de Dossard"  for="numeroDossard"/>
+                <p:inputNumber   value="#{dossardBean.dossard.numDossard}"  required="true" label="Numéro" id="numeroDossard" decimalPlaces="0">
+                    <f:validateDoubleRange minimum="1" maximum="1500"/>
+                </p:inputNumber>
+
+                <h:outputLabel value="Numéro RFID" for="numeroRFID"/>
+                <p:inputNumber   value="#{dossardBean.dossard.numRFID}"  maxlength="10" label="RFIDAjout" id="numeroRFIDEdite" decimalPlaces="0" />
+
+            </p:panelGrid>
+            <br/> <div class="buttonEditer"><p:commandButton value="Valider l'ajout" action="#{dossardBean.editerDossard()}" ajax="true" update=":messages :formulaireTableauDossard:tabDossard formulaireAjouterDossard " icon="ui-icon-plusthick"/></div>
+        </h:form>
+        </div>
+    </h:body>
+</html>
+
+
+
+

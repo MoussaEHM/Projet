@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Accueil</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="js/loading.js"></script>
+        
+        <f:metadata>
+            <f:viewParam name="idSponsor" value="#{sponsorBean.sponsor.idSponsor}" />
+            <f:viewAction action="#{sponsorBean.chargerSponsor()}" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+        <h:form>
+
+
+            <!--******************************************************************************************************************************************************************************//
+            //                                      BARRE MENU
+            //******************************************************************************************************************************************************************************-->            
+            <ui:include src="/menu/menu.xhtml"/> 
+
+
+
+        </h:form>
+        <h3 class="titre">Dimanche 27 août 2018</h3>
+        
+            
+
+        <div class="contenu">
+            <div class="img_logo">
+                <p:graphicImage value="img/VCD.png"  />
+            </div>
+            <br/>
+            <div class="reglement">
+                <p:graphicImage value="img/reglement.png"  />
+            </div>
+
+            <!-- Ajax effect-->
+
+
+            <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                <p:graphicImage name="/img/ajax-loader.gif" />
+            </p:dialog>
+
+        </div>
+        <br/> <br/>
+
+        <!-- Bouton Download Détails du Parcour-->
+        <h:form prependId="false">
+            <div class="DetailsParcours">
+
+                <p:commandButton value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s">
+                    <p:fileDownload value="#{participantBean.file}" />
+                </p:commandButton>
+
+            </div>
+            
+     
+            <script type="text/javascript">
+                function start() {
+                    PF('statusDialog').show();
+                }
+
+                function stop() {
+                    PF('statusDialog').hide();
+                }
+            </script>
+            
+       
+        </h:form>
+    </h:body>
+</html>
+

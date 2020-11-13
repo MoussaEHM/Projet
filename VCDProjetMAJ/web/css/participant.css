@@ -1,0 +1,35 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5 avr. 2018, 11:28:17
+    Author     : Moussa
+*/
+
+html, body {
+    background-color:#f5f5f5;
+}
+
+.butonUpload{
+    width: 45%;
+    position: absolute;
+    margin-left: 27%;
+}
+.fenetreParticipant{
+    margin-top: 4%;
+}
+#ombrePopupInscrit{
+        box-shadow: 6px 6px 0px black;
+}
+
+.popup{
+    z-index: 1000;
+}
+#elite{
+    display: none;
+}
+#tabInscrits{
+    border-style: hidden;
+}

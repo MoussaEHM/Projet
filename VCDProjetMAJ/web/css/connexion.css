@@ -1,0 +1,351 @@
+
+
+
+html,body {
+    margin: 0; /* pour �viter les marges */
+    text-align: center; /* pour corriger le bug de centrage IE */
+    background-color:#eee;
+}
+form, formAdmin{
+    background: url(../img/velo.png);
+        
+}
+
+.contenu{
+    margin-right : 50%;
+}
+.titre{
+    margin-left: 25%;
+    position :absolute;
+    margin-top: 110px;
+}
+.img_logo{
+    margin-top: 80px;
+    margin-right: 70%;
+}
+.reglement{
+    margin-left: 20px;
+}
+.detailleParcours{
+    margin: 40px;
+    margin-left: 65%;
+}
+
+/*********************************/
+.listePréInscrit{
+    position: relative;
+    margin-top: 100px;
+    margin-right: 70%;
+    text-decoration: underline;
+}
+
+/*********************************/
+.listeInscrit{
+    position: relative;
+    margin-top: 100px;
+    margin-right: 72%;
+    text-decoration: underline;
+}
+/**********
+/*****************************/
+/***********Formulaire Pré-Inscrit ***********/
+.formulairePreInscrit{
+    width: 90%;
+    text-align: center;
+
+}
+/*****************************/
+/* Page de connexion et success */
+
+
+
+
+
+
+#enveloppe {
+    position: relative; /* on positionne le conteneur */
+    margin-left: auto;
+    margin-right: auto;
+    width: 1015px;
+    text-align: left; /* on r�tablit l'alignement normal du texte */
+    margin-top:0px;
+    z-index:0;
+    font-family: Tahoma, serif;
+}
+
+#corps {
+    background: url('../images/bg_body.png') no-repeat;
+}
+h2.titre{
+    color: red;
+    position:relative;
+    margin-right: 31%;
+}
+
+h2.titreListeParcours{
+    text-decoration: underline;
+}
+#pied {
+    position:relative;
+    width:1015px;
+    height: 27px;
+    top:-33px;
+    background: url('../images/pied.png') no-repeat;
+    font-size:10px;
+    padding-top:4px;
+    text-align:center;
+}
+
+h1#title {
+    background: url("../images/VCD.png") no-repeat;
+    width: 250px;
+    height: 76px;
+    position: absolute;
+    top: 20px;
+    left: 34px;
+    z-index:0;
+}
+.logoVCD {
+    background: url("../images/VCD.png") no-repeat;
+    left: 200px;
+}
+#banniere {
+    position:relative;
+    width:1015px;
+    height:195px;
+    top:130px;
+    z-index: 0;	
+    background: url("../images/banniere.png") no-repeat;
+}
+
+#menuseparateur {
+    position:relative;
+    width:1015px;
+    height:195px;
+    top:130px;
+    z-index: 0;	
+    background: url("../images/separateur.png") no-repeat;
+}
+
+#centre { 
+    position:relative;
+    background: url('../images/body_repeat.png') repeat-y;
+    top:-33px;
+}
+
+#boite{
+    border-style:solid;
+    border-width:1px;
+    border-color:#dfdcdc;
+    background-color:#FFAD7A;
+    width:955px;
+    margin-left:20px;
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#boite .titre{
+    border-style:solid;
+    border-width:1px;
+    border-color:#dfdcdc;
+    background-color:#f5f5f5;
+    width:955px;
+    font-size:16px;
+    font-weight:bold;
+    padding:4px;
+    width:99%;
+    margin-bottom:10px;
+}
+
+
+
+#nav {
+    list-style-type:none;
+    position: absolute;
+    left: 0px;
+    top: 107px;
+    height:23px;
+    z-index: 0;	
+    width:1015px;
+    background: url("../images/fond_menu_haut.png") repeat-y;
+}
+
+#nav li {
+    float: left;
+    position: relative;
+    left: 0px;
+    width: 127px;
+    height:23px;
+    padding-top:0px;
+    background: url("../img/bouton_haut.png") no-repeat;
+    color: white;
+}
+
+#nav li:hover {
+    background: url("../images/bouton_haut_survol.png") no-repeat;
+}
+
+#nav li#this_page {
+    background: url("../images/bouton_haut_survol.png") no-repeat;
+}
+#nav li#this_page a{
+    color:#fff;
+}
+
+
+#nav li a {
+    font-size: 14px;
+    font-weight: bold;
+    color: #464646;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+#nav li a:hover {
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 35px;
+}
+
+
+.textebleu {
+    font-family: Tahoma, serif;
+    color:#5e9fb3;
+    font-size:12px;
+    font-weight:bold;
+}
+
+
+
+.formulaire {
+    text-decoration:none;
+    margin-left:10px;
+    margin-right:10px;
+    padding-bottom:5px;
+    color:#000;
+    border-style:solid;
+    border-width:1px;
+    border-color:#bebebe;
+    font-size:13px;
+    font-weight:normal;
+    color:#777777;
+    text-align:left;
+}
+
+.titreformulaire {
+    color:#777777;
+    font-size:16px;
+    font-weight:bold;
+    text-align:center;
+    text-decoration:none;
+    margin-top:5px;
+    margin-left:10px;
+    margin-right:10px;
+    background:url(../images/degrade_titre.gif) repeat-x;
+}
+
+.input {
+    width:200px;
+    height:16px;
+    border:1px solid;
+    border-top-color:#6f6e6e;
+    border-left-color:#6f6e6e;
+    border-right-color:#6f6e6e;
+    border-bottom-color:#6f6e6e;
+    border-width:1px;
+    border-color:#A8A6A7;
+    color:#686667;
+    font-size:11px;
+    font-weight: normal;
+}
+
+.boutonvalider {
+    background-image: url(../images/valider.png);
+    background-repeat:no-repeat;
+    background-position:5% 65%;
+    height:20px;
+    padding-left:20px;
+    width:100px;
+    height:25px;
+    color:#333333;
+    margin-top:6px;
+    margin-left:10px;
+    background-color:#ebebeb;
+    border:1px solid;
+    border-top-color:#999999;
+    border-left-color:#999999;
+    border-right-color:#666666;
+    border-bottom-color:#666666;
+}
+
+.alerte
+{
+    color:#D53A3E;
+    font-family:tahoma, verdana, arial, sans-serif;
+    font-size:10px;
+    font-weight:normal;
+}
+
+.formulaire > p.label
+{
+    margin-left:10px;
+    margin-top:6px;
+}
+.formulaire > p > .input
+{
+    margin-left:10px;
+}
+
+.message_erreur {
+    width: 470px;
+    display: block;
+    position: relative;
+    left: 466px;
+    top: 0px;
+    margin-top:0px;
+    margin-bottom:10px;
+    padding-bottom:2px;
+    padding-top:2px;
+    padding-left:20px;
+    text-align:justify;
+    border-style:solid;
+    border-top-width:1px;
+    border-top-color:#D53A3E;
+    border-right-width:2px;
+    border-right-color:#D53A3E;
+    border-bottom-width:2px;
+    border-bottom-color:#D53A3E;
+    border-left-width:1px;
+    border-left-color:#D53A3E;
+    background-color:#fff;
+}
+
+.message_erreur li {
+    padding-top:0px;
+    margin-top:0px;
+    padding-bottom:0px;
+    margin-bottom:0px;
+    margin-left:8px;
+    margin-right:10px;
+    color:#D53A3E;
+    font-family:verdana, serif;
+    font-size:13px;
+    font-weight:normal;
+    list-style-image:url(../images/important.gif);
+}
+
+
+
+
+
+
+
+
+
+
+
+

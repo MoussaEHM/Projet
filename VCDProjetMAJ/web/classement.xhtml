@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Classement</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/classement.css" media="screen" type="text/css" />
+    </h:head>
+    <h:body>
+
+        <!--******************************************************************************************************************************************************************************//
+        //                                      BARRE MENU
+        //******************************************************************************************************************************************************************************-->            
+        <ui:include src="/menu/menu.xhtml"/> 
+
+
+
+        <h2 class="classement">Liste des Inscrits :</h2>
+        <h:form  prependId="false" >
+            <br></br><br></br>
+            <p:dataTable id="tabClassement"  value="#{participantBean.listePreInscrits}" widgetVar="classement"   var="participant">
+
+                <p:column width="10%;" filterBy="#{participant.nom}">
+                        <f:facet name="header">Position</f:facet>
+                        <h:outputText value="#{participant.isArrive}"/>
+                    </p:column>
+                
+                    <p:column width="10%;" filterBy="#{participant.nom}">
+                        <f:facet name="header">Temps</f:facet>
+                        <h:outputText value="#{participant.tempsParcours}"/>
+                    </p:column>
+                
+              <p:column width="10%;" filterBy="#{participant.nom}">
+                        <f:facet name="header">NOM</f:facet>
+                        <h:outputText value="#{participant.nom}"/>
+                    </p:column>
+
+                    <p:column filterBy="#{participant.prenom}">
+                        <f:facet name="header" >PRENOM</f:facet>
+                        <h:outputText value="#{participant.prenom}"/>
+                    </p:column>
+
+                <p:column filterBy="#{participant.categorie}">
+                        <f:facet name="header">CATEGORIE</f:facet>
+                        <h:outputText id="categorie" value="#{participant.categorie.libelle}" rendered="true" />  
+                    </p:column>
+
+                <p:column filterBy="#{participant.parcours}">
+                        <f:facet name="header">PARCOURS</f:facet>
+                        <h:outputText id="parcours" value="#{participant.parcours.libelle}" rendered="true" >                 
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column width="15%;">
+                         <f:facet name="header"> DATE D'INSCRIPTION </f:facet>
+                        <h:outputText value="#{participant.dateInscription}"> 
+                            <f:convertDateTime pattern="dd/MM/YYYY"  timeZone="GMT+1"/>  
+                        </h:outputText>
+                    </p:column>
+                   <p:column width="15%;">
+                         <f:facet name="header"> Telecharger </f:facet>
+                    </p:column>
+            </p:dataTable>
+
+            <center>
+                <h3>Exportation en PDF</h3>
+                <h:commandLink>
+                    <p:graphicImage value="img/pdf.png"/>
+                    <p:dataExporter type="pdf" target="tabClassement" fileName="ListeParticipant" />
+                </h:commandLink>
+            </center>
+        </h:form>
+
+
+
+
+
+    </h:body>
+</html>

@@ -1,0 +1,37 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 15 mars 2018, 17:55:20
+    Author     : Moussa
+*/
+*
+html, body {
+    background-color:#f5f5f5;
+}
+
+.butonUpload{
+    width: 45%;
+    position: absolute;
+    margin-left: 27%;
+}
+
+.tabTempsParcours{
+    width: 50%;
+}
+#fermer{
+    position: absolute;
+    margin-left: 90%;
+    margin-bottom: 20%;
+}
+.colorPicker{
+    margin-left: 20%;
+}
+.TitreGestionParcours{
+    text-decoration: underline; 
+}
+#BorderPanel{
+    border: none;
+}

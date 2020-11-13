@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/parcoursCategorie.css" media="screen" type="text/css" />
+        
+        <script type="text/javascript" language="javascript" src="../js/editerParcoursCategorie.js"></script>
+         <f:metadata>
+             <f:viewParam name="ParcoursCategorieID" value="#{parcoursCategorieBean.parcoursCategorie.idParcoursCategorie}" />
+             <f:viewAction action="#{parcoursCategorieBean.chargerParcoursCategorie()}" />
+        </f:metadata>
+    </h:head>
+    <h:body>
+       
+
+
+            <center>
+                <h:form class="formulaireTemps" style="width: 50%;" id="tblTemps" prependId="false" >
+                    <br></br><br></br>
+                    <p:dataTable id="tabTemps"  value="#{parcoursCategorieBean.listerParcoursCategorie}"  paginator="true" rows="5" var="parcoursCategorie">
+
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">Catégorie</f:facet>
+                            <h:outputText id="categorie" value="#{parcoursCategorie.categorie.libelle}" rendered="true" />    
+                        </p:column>
+
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">Parcours</f:facet>
+                            <h:outputText id="parcours" value="#{parcoursCategorie.parcours.libelle}" rendered="true" />    
+                        </p:column>
+                        
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Or </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxOr}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Argent </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxArgent}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Bronze </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxBronze}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column width="27%">
+                            <center>
+                                <f:facet name="header">Options</f:facet>
+                                <p:commandButton value="Editer" action="#{parcoursCategorie.setCategorie(categorie)}" ajax="true" update=":formulaireEditeurTemps" icon="ui-icon-pencil"/>
+                            </center>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </center>
+            <!--Formulaire d'édition des temps-->
+            <br/>
+            <h:form id="formulaireEditeurTemps" enctype="multipart/form-data" prependId="false">
+                <h:inputHidden value="#{parcoursCategorieBean.parcoursCategorie.idParcoursCategorie}" />
+                <p:panelGrid columns="2">
+
+                    <h:outputText value="Catégorie" />
+                    <p:selectOneMenu required="true"  id="categorie" value="#{parcoursCategorieBean.parcoursCategorie.categorie.idCategorie}" label="Categorie"> 
+                        <f:selectItem itemLabel="Choisis la catégorie" itemValue="" />
+                        <f:selectItems value="#{categorieBean.listerCategorie}"  var="categorie" itemValue="#{categorie.idCategorie}" itemLabel="#{categorie.libelle}" />                  
+                    </p:selectOneMenu>
+                    
+                    <h:outputText value="Parcours" />
+                    <p:selectOneMenu required="true"  id="parcours" value="#{parcoursCategorieBean.parcoursCategorie.parcours.idParcours}" label="Parcours"> 
+                        <f:selectItem itemLabel="Choisis le parcours" itemValue="" />
+                        <f:selectItems value="#{parcoursBean.listerParcours}"  var="parcours" itemValue="#{parcours.idParcours}" itemLabel="#{parcours.libelle}" />                  
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="tempsOr" value="Or" />
+                    <p:calendar id="tempsOr" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxOr}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                    <p:outputLabel for="tempsArgent" value="Argent" />
+                    <p:calendar id="tempsArgent" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxArgent}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                    <p:outputLabel for="tempsBronze" value="Bronze" />
+                    <p:calendar id="tempsBronze" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxBronze}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                </p:panelGrid>
+                <br/><p:commandButton  value="Ajout des temps" action="#{parcoursCategorieBean.editerParcoursCategorie()}" ajax="true" update=":messages :tblTemps:tabTemps formulaireEditeurTemps" icon="ui-icon-plusthick"/>
+
+            </h:form>
+         
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Edition des temps de parcours</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="js/loading.js"></script>
+    </h:head>
+    <h:body>
+          <!-- Menu -->
+        <ui:include src="/menu/menu.xhtml"/> 
+
+
+        <h:form id="formulaireTableauTemps" prependId="false">
+            <br></br>
+            <p:dataTable id="tabParcoursTemps"  value="#{parcoursCategorieBean.listerParcoursCategorie}" paginator="true" rows="10" var="parcoursCategorie" >
+                
+                <p:column width="10%">
+                    <f:facet name="header">Temps Or</f:facet>
+                    <h:outputText value="#{parcoursCategorie.tempsMaxOr}"/>
+                </p:column>
+                
+                   <p:column width="10%">
+                    <f:facet name="header">Temps Argent</f:facet>
+                    <h:outputText value="#{parcoursCategorie.tempsMaxArgent}"/>
+                </p:column>
+                
+                   <p:column width="10%">
+                    <f:facet name="header">Temps Bronze</f:facet>
+                    <h:outputText value="#{parcoursCategorie.tempsMaxBronze}"/>
+                </p:column>
+
+                <p:column width="20%">
+                    <center>
+                        <f:facet name="header">Option</f:facet>
+                        <p:commandButton value="Editer" action="#{parcoursCategorieBean.setParcoursCategorie(parcoursCategorie)}" ajax="true"  update=":formulaireEditeurTemps" icon="ui-icon-pencil"/>
+                        <p:commandButton value="Supprimer" action="#{parcoursCategorieBean.supprimerParcoursCategorie(parcoursCategorie)}" ajax="true" update="messages tabParcoursTemps" icon="ui-icon-trash">
+                            <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ces temps ?" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </center>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+        <!--Formulaire d'édition des temps-->
+        <br/>
+        <h:form id="formulaireEditeurTemps" enctype="multipart/form-data" prependId="false">
+            <h:inputHidden value="#{parcoursCategorieBean.parcoursCategorie.parcoursCategorieID}" />
+            <p:panelGrid columns="2">
+               <p:outputLabel for="timeOr" value="Temps Or:" />
+               <p:calendar id="timeOr" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxOr}" pattern="HH:mm" timeOnly="true"  required="true"/>
+               <br/>
+               
+               <p:outputLabel value="" />
+               <p:outputLabel for="timeArgent" value="Temps Argent:" />
+               <p:calendar id="timeArgent" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxArgent}" pattern="HH:mm" timeOnly="true"  required="true"/>
+               <br/>
+               
+               <p:outputLabel value="" />
+               <p:outputLabel for="timeBronze" value="Temps Argent:" />
+               <p:calendar id="timeBronze" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxBronze}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+            </p:panelGrid>
+            <br/><p:commandButton  value="Valider l'ajout des temps" action="#{parcoursCategorieBean.editerParcoursCategorie()}" ajax="true" update=":messages :formulaireTableauTemps:tabParcoursTemps formulaireEditeurTemps" icon="ui-icon-plusthick"/>
+
+        </h:form>
+    </h:body>
+</html>

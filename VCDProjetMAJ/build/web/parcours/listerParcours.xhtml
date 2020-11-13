@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Liste des parcours</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../css/parcours.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="../js/listerParcours.js"></script>
+    </h:head>
+    <h:body> 
+        <!-- Menu -->
+        <ui:include src="/menu/menu.xhtml"/> 
+
+
+        <h:form id="formulaireTableau" prependId="false">
+            <br></br>
+            <p:dataTable id="tabParcours"  value="#{parcoursBean.listerParcours}" paginator="true" rows="10" var="parcours" >
+
+                <p:column width="10%">
+                    <f:facet name="header" >Libellé</f:facet>
+                    <h:outputText value="#{parcours.libelle.toUpperCase()}"/>
+                </p:column>
+
+                <p:column width="10%">
+                    <f:facet name="header">Distance</f:facet>
+                    <h:outputText value="#{parcours.distance}"/><p:spacer width="5" height="5" />Km
+                </p:column>
+
+                <p:column width="10%">
+                    <f:facet name="header">Heure de départ</f:facet>
+                    <h:outputText value="#{parcours.heureDepart}">
+                        <f:convertDateTime pattern="HH:mm:ss" timeZone="GMT+1"/>  
+                    </h:outputText>
+                </p:column>
+
+                <p:column width="5%">
+                    <center>
+                        <f:facet name="header">Couleur</f:facet>
+                        <p:colorPicker  value="#{parcours.couleur}"/>
+                    </center>
+                </p:column>
+
+                <p:column width="20%">
+                    <center>
+                        <f:facet name="header">Option</f:facet>
+                        <p:commandButton value="Consulter" action="#{parcoursBean.setParcours(parcours)}" ajax="false" onclick="myFunction('#{parcours.idParcours}')"  icon="ui-icon-search"/>
+                        <p:commandButton value="Editer" action="#{parcoursBean.setParcours(parcours)}" ajax="true"  update=":formulaireEditeur" icon="ui-icon-pencil"/>
+                        <p:commandButton value="Supprimer" action="#{parcoursBean.supprimerParcours(parcours)}" ajax="true" update="messages tabParcours" icon="ui-icon-trash">
+                            <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ce parcours ?" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </center>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+        <!--Formulaire d'édition-->
+
+        <h2 class="TitreGestionParcours">Gestion des parcours</h2>
+        <br/>
+        <h:form id="formulaireEditeur" enctype="multipart/form-data" prependId="false">
+            <h:inputHidden value="#{parcoursBean.parcours.idParcours}" />
+            <p:panelGrid styleClass="ui-panelgrid-blank" columns="3">
+                <h:outputLabel value="Libellé: " for="libelle"/>
+                <p:inputText value="#{parcoursBean.parcours.libelle}" maxlength="50" required="true" label="Libellé" id="libelle"/> 
+                <h:outputText value="" />
+                <h:outputText value="Distance" />
+                <p:inputNumber value="#{parcoursBean.parcours.distance}" required="true"  decimalPlaces="2" label="Distance">
+                    <f:validateLongRange minimum="2" maximum="300"/>
+                </p:inputNumber>
+                <p:outputLabel value="Km" />
+                <p:outputLabel for="temps" value="Heure de départ" />
+                <p:calendar id="temps" value="#{parcoursBean.parcours.heureDepart}" pattern="HH:mm:ss" timeOnly="true"  required="true"/>
+
+                <p:colorPicker value="#{parcoursBean.parcours.couleur}"/>
+
+            </p:panelGrid>
+            <br/><p:commandButton  value="Valider l'ajout" action="#{parcoursBean.editerParcours()}" ajax="true" update=":messages :formulaireTableau:tabParcours formulaireEditeur" icon="ui-icon-plusthick"/>
+
+        </h:form>
+    </h:body>
+</html>

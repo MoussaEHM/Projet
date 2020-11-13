@@ -1,0 +1,24 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10 avr. 2018, 21:15:05
+    Author     : Moussa
+*/
+
+html, body {
+    background-color:#f5f5f5;
+}
+.listeCategorie{
+    text-decoration: underline; 
+    color:#878787;
+}
+
+.buttonEditer{
+    margin-left:10%;
+}
+.tableauCategorieffc{
+    width: 50%;margin-left: 30%;
+}

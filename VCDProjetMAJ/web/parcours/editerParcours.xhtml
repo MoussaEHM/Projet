@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Consultation des parcours</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../css/parcours.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="../js/editerParcours.js"></script>
+        <f:metadata>
+            <f:viewParam name="idParcours" value="#{parcoursBean.parcours.idParcours}" />
+            <f:viewAction action="#{parcoursBean.chargerParcours()}" />
+        </f:metadata>
+    </h:head>
+
+    <h:body>
+        <center> <h2 style="text-decoration: underline;" id="titreListeParcours"> Liste des parcours</h2 > </center>
+        <!-- Popup pour consulter la liste des parcours-->
+        <div class="fenetreParcours">
+            <p:growl id="messages" />
+            <h:form id="fenetreParcours" enctype="multipart/form-data" prependId="false">
+
+                <p:commandButton id="fermer" value="Fermer" action="#{parcoursBean.editerParcours()}" ajax="false" onclick="closeWin()" icon="ui-icon-closethick"/>    
+                <center>
+                    <p:panelGrid columns="3" styleClass="ui-panelgrid-blank" id="ombrePopupParcours">
+
+                        <h:outputLabel value="Libellé: " for="libelle"/>
+                        <p:inputText value="#{parcoursBean.parcours.libelle}" required="true" label="Libellé" id="libelle"/> 
+                        <h:outputText value="" />
+                        <h:outputText value="Distance" />
+                        <p:inputNumber value="#{parcoursBean.parcours.distance}" required="true" >
+                        </p:inputNumber>
+                        <p:outputLabel value="Km" />
+                        <p:outputLabel for="time" value="Heure de départ" />
+                        <p:calendar id="time" value="#{parcoursBean.parcours.heureDepart}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                    </p:panelGrid>
+                </center>
+                <br/>
+                <br/>
+                <br/>
+            </h:form>
+
+            <center>
+                <h:form class="formulaireTemps" style="width: 50%;" id="tblTemps" prependId="false" >
+                    <br></br><br></br>
+                    <p:dataTable id="tabTemps"  value="#{parcoursCategorieBean.listerParcoursCategorie}"  paginator="true" rows="5" var="parcoursCategorie">
+
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">Catégorie</f:facet>
+                            <h:outputText id="categorie" value="#{parcoursCategorie.categorie.libelle}" rendered="true" />    
+                        </p:column>
+
+                        <p:column style="text-align: center;" >
+                            <f:facet name="header">Parcours</f:facet>
+                            <h:outputText id="parcours" value="#{parcoursCategorie.parcours.libelle}" rendered="true" />    
+                        </p:column>
+
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Or </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxOr}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Argent </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxArgent}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+                        <p:column style="text-align: center;">
+                             <f:facet name="header"> Temps Bronze </f:facet>
+                            <h:outputText value="#{parcoursCategorie.tempsMaxBronze}"> 
+                                <f:convertDateTime pattern="HH:mm" timeZone="GMT+1"/>  
+                            </h:outputText>
+                        </p:column>
+
+
+                        <p:column width="27%">
+                            <center>
+                                <f:facet name="header">Options</f:facet>
+                                <p:commandButton value="Supprimer" action="#{parcoursCategorieBean.supprimerParcoursCategorie(parcoursCategorie)}" ajax="true" update="messages tabTemps" icon="ui-icon-trash">
+                                    <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ce participant ?" />
+                                </p:commandButton>
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                    <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                            </center>
+                        </p:column>
+
+                    </p:dataTable>
+
+                </h:form>
+            </center>
+            <!--Formulaire d'édition des temps-->
+            <br/>
+            <h:form id="formulaireEditeurTemps" enctype="multipart/form-data" prependId="false">
+                <h:inputHidden value="#{parcoursCategorieBean.parcoursCategorie.idParcoursCategorie}" />
+                <p:panelGrid columns="2">
+
+                    <h:outputText value="Catégorie" />
+                    <p:selectOneMenu required="true"  id="categorie" value="#{parcoursCategorieBean.parcoursCategorie.categorie.idCategorie}" label="Categorie"> 
+                        <f:selectItem itemLabel="Choisis la catégorie" itemValue="" />
+                        <f:selectItems value="#{categorieBean.listerCategorie}"  var="categorie" itemValue="#{categorie.idCategorie}" itemLabel="#{categorie.libelle}" />                  
+                    </p:selectOneMenu>
+
+                    <h:outputText value="Parcours" />
+                    <p:selectOneMenu required="true"  id="parcours" value="#{parcoursCategorieBean.parcoursCategorie.parcours.idParcours}" label="Parcours"> 
+                        <f:selectItem itemLabel="Choisis le parcours" itemValue="" />
+                        <f:selectItems value="#{parcoursBean.listerParcours}"  var="parcours" itemValue="#{parcours.idParcours}" itemLabel="#{parcours.libelle}" />                  
+                    </p:selectOneMenu>
+
+                    <p:outputLabel for="tempsOr" value="Or" />
+                    <p:calendar id="tempsOr" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxOr}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                    <p:outputLabel for="tempsArgent" value="Argent" />
+                    <p:calendar id="tempsArgent" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxArgent}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                    <p:outputLabel for="tempsBronze" value="Bronze" />
+                    <p:calendar id="tempsBronze" value="#{parcoursCategorieBean.parcoursCategorie.tempsMaxBronze}" pattern="HH:mm" timeOnly="true"  required="true"/>
+
+                </p:panelGrid>
+                <br/><p:commandButton  value="Ajout des temps" action="#{parcoursCategorieBean.editerParcoursCategorie()}" ajax="true" update=":messages :tblTemps:tabTemps formulaireEditeurTemps" icon="ui-icon-plusthick"/>
+
+            </h:form>
+        </div>  
+    </h:body>  
+</html>

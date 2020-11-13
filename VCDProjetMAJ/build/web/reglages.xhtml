@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Réglages</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/classement.css" media="screen" type="text/css" />
+    </h:head>
+    <h:body>
+        <ui:include src="/menu/menu.xhtml"/> 
+     
+
+          <div class="classement">
+              <center>
+            <a href="parcours/listerParcours.jsf"><p:button value="Gestion des Parcours"  icon="ui-icon-gear"/></a>
+      
+            <a href="categorie/editerCategorie.jsf"><p:button value="Gestion des Catégories"  icon="ui-icon-gear"/></a>
+           
+            <a href="dossard/editerDossard.jsf"><p:button value="Gestion des Dossards"  icon="ui-icon-gear"/></a>
+              </center>
+          </div>
+    </h:body>
+</html>

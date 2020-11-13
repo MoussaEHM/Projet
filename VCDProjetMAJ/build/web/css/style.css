@@ -1,0 +1,71 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 27 févr. 2018, 15:20:03
+    Author     : Moussa
+*/
+
+.contenu{
+    margin-right : 50%;
+}
+.titre{
+    margin-left: 25%;
+    position :absolute;
+    margin-top: 110px;
+}
+.img_logo{
+    margin-top: 80px;
+    margin-right: 70%;
+}
+.reglement{
+    margin-left: 20px;
+}
+.detailleParcours{
+    margin: 40px;
+    margin-left: 65%;
+}
+
+
+/*****************************/
+/* Page de connexion et success */
+
+
+* { margin: 0; padding: 0;}
+
+html, body {
+    margin: 0; /* pour �viter les marges */
+    text-align: center; /* pour corriger le bug de centrage IE */
+    background-color:#eeeeee;
+}
+
+
+body {
+    background-image: url('img/velo.png') ;
+    color:black;
+    margin:0;
+}
+h2.titre{
+    color: red;
+    position:relative;
+    margin-right: 31%;
+}
+
+h2.titreListeParcours{
+    text-decoration: underline;
+}
+
+.logoVCD {
+    background: url("../images/VCD.png") no-repeat;
+    left: 200px;
+}
+
+
+
+
+
+
+
+

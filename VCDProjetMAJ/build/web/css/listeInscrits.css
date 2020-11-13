@@ -1,0 +1,36 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 18 juin 2018, 17:23:14
+    Author     : Moussa
+*/
+
+
+html, body {
+    margin: 0; /* pour �viter les marges */
+    text-align: center; /* pour corriger le bug de centrage IE */
+    background-color:#eee
+}
+
+/*********************************/
+.listePréInscrit{
+    position: relative;
+    text-decoration: underline;
+}
+
+/*********************************/
+.listeInscrit{
+    position: relative; 
+    text-decoration: underline;
+}
+/**********
+/*****************************/
+/***********Formulaire Pré-Inscrit ***********/
+.formulairePreInscrit{
+    width: 90%;
+    text-align: center;
+
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Liste des catégories</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="../css/categorie.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="../js/editerCategorie.js"></script>
+    </h:head>
+    <h:body>
+
+        <!-- Menu -->
+        <ui:include src="/menu/menu.xhtml"/> 
+
+        <h:form id="formulaireTableauCategorie" prependId="false">
+            <br></br>
+            <p:dataTable id="tabCategorie"  value="#{categorieBean.listerCategorie}" paginator="true" rows="10" var="categorie" >
+
+                <p:column width="10%">
+                    <f:facet name="header">Libellé</f:facet>
+                    <h:outputText value="#{categorie.libelle.toUpperCase()}"/>
+                </p:column>
+
+                <p:column width="10%">
+                    <f:facet name="header">Age mini</f:facet>
+                    <h:outputText value="#{categorie.ageMini}"/>
+                </p:column>
+
+                <p:column width="10%">
+                    <f:facet name="header">Age Maxi</f:facet>
+                    <h:outputText value="#{categorie.ageMaxi}"/>
+                </p:column>
+
+                <p:column width="10%">
+                    <f:facet name="header">Sexe</f:facet>
+                    <h:outputText value="Homme" rendered="#{categorie.sexe eq 'Homme'}"/>
+                    <h:outputText value="Femme" rendered="#{categorie.sexe eq 'Femme'}"/>
+                    <h:outputText value="Mixte" rendered="#{categorie.sexe eq 'Mixte'}"/>
+                </p:column>
+
+                <p:column width="10%">
+                    <center>
+                        <f:facet name="header">Option</f:facet>
+                        <p:commandButton value="Editer" action="#{categorieBean.setCategorie(categorie)}" ajax="true"  update=":formulaireAjouterCategorie" icon="ui-icon-pencil"/>
+                        <p:commandButton value="Supprimer" action="#{categorieBean.supprimerCategorie(categorie)}" ajax="true" update="messages tabCategorie" icon="ui-icon-trash">
+                            <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer cette categorie ?" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </center>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+
+
+        <h2 class="listeCategorie">Gestion des catégories :</h2>
+        <!--Formulaire d'ajout-->
+        <br/>
+        <h:form  id="formulaireAjouterCategorie" enctype="multipart/form-data" prependId="false">
+            <h:inputHidden value="#{categorieBean.categorie.idCategorie}" />
+            <p:panelGrid styleClass="ui-panelgrid-blank" columns="2" id="panElite">
+                <h:outputText value="Elite"/>
+                <p:selectBooleanCheckbox value="#{categorieBean.categorie.elite}" onchange="ChoixCategorie('panAge');" >
+                    <p:ajax update=":messages :AgeminiAjout :AgemaxiAjout :sexeCategorie" listener="#{categorieBean.categorie.messageElite()}"/>
+                </p:selectBooleanCheckbox>     
+                
+                <h:outputLabel  value="Libellé" style="width: 10%;" for="libelleAjout"/>
+                <p:inputText  value="#{categorieBean.categorie.libelle}"  maxlength="50" required="true" label="Libellé" id="libelleAjout"/>  
+            </p:panelGrid>
+            
+            <p:panelGrid styleClass="ui-panelgrid-blank" columns="2" id="panAge">
+                <h:outputLabel class="agemini" value="Age mini " for="AgeminiAjout"/>
+                <p:inputNumber value="#{categorieBean.categorie.ageMini}" required="false" label="AgeminiAjout" id="AgeminiAjout" minValue="0"  maxValue="99" decimalPlaces="0"/> 
+                <h:outputLabel value="Age maxi" for="AgemaxiAjout"/>
+                <p:inputNumber value="#{categorieBean.categorie.ageMaxi}" required="false" label="AgemaxiAjout" id="AgemaxiAjout" minValue="0"  maxValue="99" decimalPlaces="0"/>
+                <p:outputLabel value="Sexe"/>
+                <h:selectOneRadio  value="#{categorieBean.categorie.sexe}" required="false" label="Sexe" id="sexeCategorie" >
+                    <f:selectItem itemLabel="Femme" itemValue="Femme" />
+                    <f:selectItem itemLabel="Homme" itemValue="Homme" />
+                    <f:selectItem itemLabel="Mixte" itemValue="Mixte" />
+                </h:selectOneRadio>
+            </p:panelGrid>
+            <br/> <div class="buttonEditer"><p:commandButton value="Valider l'ajout" action="#{categorieBean.editerCategorie()}" ajax="true" update=":messages :formulaireTableauCategorie:tabCategorie formulaireAjouterCategorie " icon="ui-icon-plusthick"/></div>
+
+        </h:form>
+      
+    </h:body>
+</html>

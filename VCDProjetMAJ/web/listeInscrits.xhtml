@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Liste des Inscrits</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/listeInscrits.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="js/listeInscrits.js"></script>
+    </h:head>
+    <h:body>           
+        <ui:include src="/menu/menu.xhtml"/> 
+        <br/>
+        <h2 class="listePréInscrit">Liste des Pré-Inscrits :</h2>
+        <br/>
+        <center>
+            <h:form class="formulairePreInscrit" id="tbl" prependId="false" >
+                <p:dataTable id="tabPreInscrits"  value="#{participantBean.listePreInscrits}"  paginator="true" rows="5" var="participant">
+
+                    <p:column width="10%;" filterBy="#{participant.nom}">
+                        <f:facet name="header">NOM</f:facet>
+                        <h:outputText value="#{participant.nom}"/>
+                    </p:column>
+
+                    <p:column  >
+                        <f:facet name="header">PRENOM</f:facet>
+                        <h:outputText value="#{participant.prenom}"/>
+                    </p:column>
+
+                    <p:column width="10%;">
+                        <f:facet name="header">SEXE</f:facet>
+                        <h:outputText value="Homme" rendered="#{participant.sexe eq 'Homme'}"/>
+                        <h:outputText value="Femme" rendered="#{participant.sexe eq 'Femme'}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">CATEGORIE</f:facet>
+                        <h:outputText id="categorie" value="#{participant.categorie.libelle}" rendered="true" />  
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">PARCOURS</f:facet>
+                        <h:outputText id="parcours" value="#{participant.parcours.libelle}" rendered="true" >                 
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column width="15%;">
+                         <f:facet name="header">DATE D'INSCRIPTION </f:facet>
+                        <h:outputText value="#{participant.dateInscription}"> 
+                            <f:convertDateTime pattern="dd/MM/YYYY"  timeZone="GMT+1"/>  
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column width="27%">
+                        <center>
+                            <f:facet name="header">OPTIONS</f:facet>
+                            <p:commandButton value="Editer" action="#{participantBean.ouvrirParticipant(participant)}" ajax="false" icon="ui-icon-search"/>
+                            <p:commandButton value="Supprimer" action="#{participantBean.supprimer(participant)}" ajax="true" update="messages tabPreInscrits" icon="ui-icon-trash">
+                                <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ce participant ?" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </center>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+        </center>
+
+        
+        <h2 class="listeInscrit">Liste des Inscrits :</h2>
+        <center>
+            <h:form class="formulairePreInscrit" id="tblInscrit" prependId="false" >
+                <br></br><br></br>
+
+                <p:dataTable id="tabInscrits" value="#{participantBean.listeInscrits}"  paginator="true" rows="5" var="participant">
+
+                    <p:column style="text-align: center; width: 10%;" filterBy="#{participant.nom}">
+                        <f:facet name="header">NOM</f:facet>
+                        <h:outputText value="#{participant.nom.toUpperCase()}"/>
+                    </p:column>
+
+                    <p:column  >
+                        <f:facet name="header">PRENOM</f:facet>
+                        <h:outputText  value="#{participant.prenom.toUpperCase()}"/>
+                    </p:column>
+
+                    <p:column>
+                        <f:facet name="header">SEXE</f:facet>
+                        <h:outputText value="Homme" rendered="#{participant.sexe eq 'Homme'}"/>
+                        <h:outputText value="Femme" rendered="#{participant.sexe eq 'Femme'}"/>
+                    </p:column>
+
+                    <p:column >
+                        <f:facet name="header">CATEGORIE</f:facet>
+                        <h:outputText id="categorie" value="#{participant.categorie.libelle.toUpperCase()}" rendered="true" />  
+                    </p:column>
+
+                    <p:column >
+                        <f:facet name="header">PARCOURS</f:facet>
+                        <h:outputText id="parcours" value="#{participant.parcours.libelle.toUpperCase()}" rendered="true" >                 
+                        </h:outputText>
+                    </p:column>
+
+
+                    <p:column>
+                        <f:facet name="header">NUMERO DE DOSSARD</f:facet>
+                        <h:outputText value="#{participantBean.chargerDossard(participant)}"/>                 
+                    </p:column> 
+
+                    <p:column width="20%">
+                        <center>
+                            <f:facet name="header">OPTIONS</f:facet>
+                            <p:commandButton value="Editer" action="#{participantBean.ouvrirParticipant(participant)}" ajax="false" icon="ui-icon-search"/>
+                            <p:commandButton value="Supprimer" action="#{participantBean.supprimer(participant)}" ajax="true" update="messages tabInscrits" icon="ui-icon-trash">
+                                <p:confirm header="Confirmation" message="Voulez-vous vraiment supprimer ce participant ?" />
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </center>
+                    </p:column>
+                </p:dataTable>
+
+                <h3>Exportation en PDF</h3>
+                    <a href="listeInscritsExport.jsf"><p:graphicImage value="img/pdf.png"/></a>
+                <h3>Exportation en csv</h3>
+                 <a href="listeInscritsExport.jsf"><p:graphicImage value="img/csv.png"/></a>
+            </h:form>
+        </center>
+        <br/>
+    </h:body>
+</html>

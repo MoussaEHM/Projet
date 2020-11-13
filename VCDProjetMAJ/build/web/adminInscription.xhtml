@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>    
+        <title>Inscription</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/participant.css" media="screen" type="text/css" />
+        <script type="text/javascript" language="javascript" src="js/inscription.js"></script>
+    </h:head>
+    <h:body>
+        <!--******************************************************************************************************************************************************************************//
+        //                                      BARRE MENU
+        //******************************************************************************************************************************************************************************--> 
+        <ui:include src="/menu/menu.xhtml"/> 
+
+
+
+        <h:form id="formInscription" enctype="multipart/form-data"  prependId="false">
+
+            <br/>
+
+            <!-- PARTIE GAUCHE -->
+            <div align="left">
+
+                <p:panelGrid styleClass="ui-panelgrid-blank"  columns="2" >
+                    <h:outputText value="Inscription :" />
+                    <h:outputText value="Dimanche 26 Août 2018" />
+                </p:panelGrid>
+
+                <p:panelGrid  styleClass="ui-panelgrid-blank" columns="2">
+
+                    <h:outputLabel value="Nom:" for="nom"/>
+                    <p:inputText  value="#{participantBean.participant.nom}" required="true" label="Nom de famille" id="nom"/> 
+
+                    <h:outputLabel value="Prénom:" for="Prenom"/>
+                    <p:inputText value="#{participantBean.participant.prenom}" required="true" label="Prénom" id="Prenom"/>
+
+                    <h:outputLabel value="Date de Naissance:" for="Date de nasisance"/>
+                    <p:calendar id="button" value="#{participantBean.participant.dateNaissance}" showOn="button" required="true" label="Date de nasisance" >
+                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                    </p:calendar>
+
+                    <h:outputText value="Sexe:"/>
+                    <h:selectOneRadio id="Sexe" value="#{participantBean.participant.sexe}" required="true" label="Sexe" >
+                        <f:selectItem itemLabel="Femme" itemValue="Femme" />
+                        <f:selectItem itemLabel="Homme" itemValue="Homme" />
+                    </h:selectOneRadio>
+
+                    <h:outputLabel value="Adresse:" for="Adresse"/>
+                    <p:inputText value="#{participantBean.participant.adresse}" required="true" label="Adresse" id="Adresse"/>
+
+                    <h:outputLabel value="Code postal" for="Code postal"/>
+                    <p:inputNumber   value="#{participantBean.participant.codePostal}" required="true" label="Code postal" id="Codepostal" maxValue="99999" decimalPlaces="0" />
+
+
+                    <h:outputLabel value="Ville:" for="Ville"/>
+                    <p:inputText value="#{participantBean.participant.ville}" required="true" label="Ville" id="Ville">
+                    </p:inputText>
+
+
+
+                    <h:outputLabel value="Adresse Mail:" for="Email"/>
+                    <p:inputText required="true" label="Adresse mail" id="Email" size="40" requiredMessage="Veuillez entrer votre adresse email" validatorMessage="Merci de saisir une adresse mail valide." value="#{participantBean.participant.mail}">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:inputText>
+                    <p:watermark for="Email" value="XXXXX@XXXXX.XX" />
+                    <p:message for="Email"/>
+
+                    <h:outputLabel value="Remarque:" for="Remarque"/>
+                    <p:editor widgetVar="editorWidget" value="#{participantBean.participant.remarque}" width="400" id="Remarque" />
+
+                </p:panelGrid>
+
+            </div>
+
+            <br/>
+            <!-- PARTIE DROITE -->
+            <div align="left">
+                <!-- Parcours -->
+                <p:panelGrid styleClass="ui-panelgrid-blank"  columns="3" >
+
+                    <h:outputLabel value="Je m'inscris pour le :" for="Les Parcours" />
+                    <p:selectOneMenu id="parcours" value="#{participantBean.participant.parcours.idParcours}" label="Les Parcours" required="true"> 
+                        <f:selectItem itemLabel="Choisissez votre parcours" itemValue="" />
+                        <f:selectItems value="#{parcoursBean.listerParcours}"  var="parcours" itemValue="#{parcours.idParcours}" itemLabel="#{parcours.libelle.toUpperCase()}" />                  
+                    </p:selectOneMenu>
+
+
+                    <h:outputText value="Tarif" />
+                    <h:outputText value="Je suis dans la categorie:" />
+                    <p:selectOneMenu id="categorie" value="#{participantBean.participant.categorie.idCategorie}" label="Categorie" required="true"> 
+                        <f:selectItem itemLabel="Attribution d'une categorie" itemValue="" />
+                        <f:selectItems value="#{categorieBean.listerCategorie}"  var="categorie" itemValue="#{categorie.idCategorie}" itemLabel="#{categorie.libelle.toUpperCase()}" />                  
+                    </p:selectOneMenu>
+
+                    <div>
+                        Tarif Unique : 30€<br/>
+                        Tarif Licencié FFC : 28€<br/>
+                        -16 ans / Formule Rando : 15€
+                    </div>
+
+                </p:panelGrid>
+
+
+                <!-- Radio Button Certificat/Licence -->
+                <p:panelGrid styleClass="ui-panelgrid-blank"  columns="4" >
+                    <h:outputText value="Licence:" />
+                    <p:selectOneRadio id="Licence"  onclick="choixLicence(this);" value="#{participantBean.participant.licence}" styleClass="radio" columns="1" layout="responsive" required="true" >
+                        <p:ajax process="@this" update="@form:tarif @form:licenceCertificat"  listener="#{participantBean.selectTarif}"/>
+                        <f:selectItem itemLabel="Non licencié FFC" itemValue="nonLicence"/>
+                        <f:selectItem itemLabel="Licencié FFC" itemValue="licence" />
+                    </p:selectOneRadio>
+
+
+                    <p:selectBooleanCheckbox itemLabel="Elite (1ère ou 2ème Catégorie):"  value="#{categorieBean.categorie.elite}" id="blocElite" style="display:none">
+                        <p:ajax update=":messages"  listener="#{categorieBean.categorie.messageEliteInscription()}" />
+                    </p:selectBooleanCheckbox>
+
+
+                </p:panelGrid> 
+
+
+                <!-- Radio Button Certificat/Licence -->    
+                <p:panelGrid styleClass="ui-panelgrid-blank"  columns="1" >
+                    <p:selectOneRadio id="licenceCertificat" value="#{participantBean.participant.licence}" styleClass="radio" layout="responsive" columns="1" required="true" >
+                        <f:selectItem itemLabel="Si je suis licencié FFC j'envoie ma licence avec le bouton ci-dessous." itemValue="licence" /> 
+                        <f:selectItem itemLabel="ou je ne suis pas licencié FFC et j'envoi un certificat médical avec le bouton ci-dessous." itemValue="nonLicence" />
+                        <f:selectItem itemLabel="ou je ne n'ai pas les moyens d'envoyer une licence ou un certificat et le l'apporterai le jour de la compétition" itemValue="autre" />
+                    </p:selectOneRadio>
+
+
+                    <!-- Bouton Parcourir -->
+                    <p:fileUpload label="Envoie de documents" auto="true" fileUploadListener="#{participantBean.upload}" fileLimit="3" mode="advanced" id="file" sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png|pdf)$/"  update="imageParticipantHidden" styleClass="upload"/>
+                    <h:inputHidden value="#{participantBean.participant.certificat}" id="imageParticipantHidden"/>
+                </p:panelGrid>   
+
+            </div>
+
+            <p:panelGrid styleClass="ui-panelgrid-blank"  columns="1" >
+                <p:selectOneMenu id="dossard" value="#{participantBean.numDossard}" label="Dossard"> 
+                    <f:selectItem itemLabel="Attribution des dossards disponibles" itemValue="" />
+                    <f:selectItems value="#{dossardBean.listerDossardNonAffectes}"  var="dossard" itemValue="#{dossard.numDossard}" itemLabel="#{dossard.numDossard}" />                  
+                </p:selectOneMenu>
+            </p:panelGrid>   
+            <!-- Tarif -->
+            <p:panelGrid styleClass="ui-panelgrid-blank"  columns="3" >
+                <h:outputText value="Tarif : " />
+                <h:outputText value="#{participantBean.tarif}" id="tarif"/> 
+                <p:commandButton  value="Ajouter et payer" action="#{participantBean.inscriptionAdmin()}" ajax="false" update=":messages :formInscription"/>
+            </p:panelGrid>
+
+        </h:form>               
+    </h:body>
+</html>

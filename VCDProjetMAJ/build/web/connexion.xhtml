@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Connexion</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="css/connexion.css" media="screen" type="text/css" />
+    </h:head>
+    <h:body>
+        <ui:include  src="/menu/menu.xhtml"/> 
+        <!--******************************************************************************************************************************************************************************//
+        //                                      BARRE MENU
+        //******************************************************************************************************************************************************************************-->            
+
+         <!-- vue authentification -->
+             <h:graphicImage  id="logoVCD" styleClass="logoVCD" value="img/VCD.png"/>
+        <h:form>
+            <!--<h:messages styleClass="message_erreur" id="message_erreur" />-->
+            <center><div  id="boite" style="width:400px">
+                    <div class="formulaire">
+                        <div class="titreformulaire">Connexion en mode Admin <span
+                                class="alerte">Les champs notés * sont obligatoires</span></div>
+                        <p class="label"><label>Identifiant *</label></p>
+                        <p><p:inputText label="Identifiant" id="identifiant"
+                                        value="#{authenticationBean.identifiant}" required="true"
+                                        styleClass="input"/></p>
+                        <p class="label"><label>Mot de passe *</label></p>
+                        <p><p:password label="Mot de passe" id="motdepasse"
+                                       value="#{authenticationBean.motdepasse}" required="true" styleClass="input" inline="true"  /></p>
+                        <p><h:commandButton value="Valider"
+                                            action="#{authenticationBean.validerAuthentification()}"
+                                            styleClass="boutonvalider"/></p>
+                    </div>
+                </div></center>
+            <p:separator />
+ 
+    <p:messages id="messages"  />
+        </h:form>  
+
+
+    </h:body>
+</html>
